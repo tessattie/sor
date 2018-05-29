@@ -25,6 +25,28 @@ div.message{
 	border-radius:3px;
 	color:red;
 }
+.notLogin div.message{
+	background-color:#f2dede;
+	padding:6px;
+	margin-top:0px;
+	margin-bottom:10px;
+	text-align:center;
+	border-radius:3px;
+	color:red;
+}
+
+.notLogin div.message.success{
+	background-color:#dff0d8;
+	padding:6px;
+	margin-top:0px;
+	margin-bottom:10px;
+	text-align:center;
+	border-radius:3px;
+	color:red;
+}
+.notLogin .navbar{
+	margin-bottom:0px;
+}
 .DetailDisplay{
 	display:none;
 }

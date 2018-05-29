@@ -57,13 +57,31 @@ class CustomersTable extends Table
             ->scalar('first_name')
             ->maxLength('first_name', 255)
             ->requirePresence('first_name', 'create')
-            ->notEmpty('first_name');
+            ->notEmpty('first_name')
+            ->add('first_name', 'isValidFirstName', [
+            'rule' => function ($data, $provider) {
+                $regex = "/^[a-zA-Z'àâéèêôùûçÀÂÉÈÔÙÛÇ\s-]{1,30}$/";
+                if (preg_match($regex, $data)) {
+                    return true;
+                }
+                return 'The first name has unauthorized characters';
+            }
+        ]);
 
         $validator
             ->scalar('last_name')
             ->maxLength('last_name', 255)
             ->requirePresence('last_name', 'create')
-            ->notEmpty('last_name');
+            ->notEmpty('last_name')
+            ->add('last_name', 'isValidLastName', [
+            'rule' => function ($data, $provider) {
+                $regex = "/^[a-zA-Z'àâéèêôùûçÀÂÉÈÔÙÛÇ\s-]{1,30}$/";
+                if (preg_match($regex, $data)) {
+                    return true;
+                }
+                return 'The Last name has unauthorized characters';
+            }
+        ]);
 
         $validator
             ->scalar('NIF')
@@ -92,12 +110,30 @@ class CustomersTable extends Table
         $validator
             ->scalar('entreprise')
             ->maxLength('entreprise', 255)
-            ->allowEmpty('entreprise');
+            ->allowEmpty('entreprise')
+            ->add('entreprise', 'isValidEnterprise', [
+            'rule' => function ($data, $provider) {
+                $regex = "/^[a-zA-Z'àâéèêôùûçÀÂÉÈÔÙÛÇ\s-]{1,30}$/";
+                if (preg_match($regex, $data)) {
+                    return true;
+                }
+                return 'The business name has unauthorized characters';
+            }
+        ]);
 
         $validator
             ->scalar('employeur')
             ->maxLength('employeur', 255)
-            ->allowEmpty('employeur');
+            ->allowEmpty('employeur')
+            ->add('employeur', 'isValidEmployer', [
+            'rule' => function ($data, $provider) {
+                $regex = "/^[a-zA-Z'àâéèêôùûçÀÂÉÈÔÙÛÇ\s-]{1,30}$/";
+                if (preg_match($regex, $data)) {
+                    return true;
+                }
+                return 'The employer name has unauthorized characters';
+            }
+        ]);
 
         $validator
             ->integer('tel_employeur')
@@ -115,11 +151,27 @@ class CustomersTable extends Table
 
         $validator
             ->requirePresence('status', 'create')
-            ->notEmpty('status');
+            ->notEmpty('status')
+            ->add('status', 'isValidStatus', [
+            'rule' => function ($data, $provider) {
+                if ($data >= 0 && $data <= 1) {
+                    return true;
+                }
+                return 'This status is invalid';
+            }
+        ]);
 
         $validator
             ->requirePresence('type_carte', 'create')
-            ->notEmpty('type_carte');
+            ->notEmpty('type_carte')
+            ->add('type_carte', 'isValidSType', [
+            'rule' => function ($data, $provider) {
+                if ($data >= 1 && $data <= 2) {
+                    return true;
+                }
+                return 'This card type is invalid';
+            }
+        ]);
 
         $validator
             ->scalar('num_client')
@@ -144,7 +196,7 @@ class CustomersTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->isUnique(['email']));
+        $rules->add($rules->isUnique(['num_client']));
 
         return $rules;
     }

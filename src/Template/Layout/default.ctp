@@ -37,7 +37,7 @@ $cakeDescription = 'CMSA';
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
 </head>
-<body>
+<body class="notLogin">
     <nav class="navbar navbar-default">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -80,7 +80,7 @@ $cakeDescription = 'CMSA';
   </div><!-- /.container-fluid -->
 </nav>
     <?= $this->Flash->render() ?>
-    <div class="container-fluid clearfix" style = "padding-bottom:40px;width:90%">
+    <div class="container-fluid clearfix" style = "padding-bottom:40px;width:90%;margin-top:20px">
         <?= $this->fetch('content') ?>
     </div>
     <footer>

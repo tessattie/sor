@@ -21,7 +21,8 @@ class CustomersController extends AppController
     public function index()
     {
         $customers = $this->paginate($this->Customers);
-
+        $this->set('account_types', array(2 => "Carte Cheque", 1 => "Caribbean Club", 3 => "Carte Credit"));
+        $this->set('status', array(1 => "Active", 0 => "Inactive"));
         $this->set(compact('customers'));
     }
 
@@ -51,6 +52,7 @@ class CustomersController extends AppController
         $customer = $this->Customers->newEntity();
         if ($this->request->is('post')) {
             $customer = $this->Customers->patchEntity($customer, $this->request->getData());
+            $customer->num_client = rand(1000000, 9999999);
             if ($this->Customers->save($customer)) {
                 $this->Flash->success(__('The customer has been saved.'));
 
