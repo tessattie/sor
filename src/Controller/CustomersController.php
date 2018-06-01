@@ -36,10 +36,23 @@ class CustomersController extends AppController
     public function view($id = null)
     {
         $customer = $this->Customers->get($id, [
-            'contain' => ['Advisors']
+            'contain' => ['Advisors', 'Documents']
         ]);
-
+        $advisor = $this->Customers->Advisors->newEntity();
+        $document = $this->Customers->Documents->newEntity();
         $this->set('customer', $customer);
+        $this->set('document', $document);
+        $this->set('advisor', $advisor);
+    }
+
+    public function search(){
+        if($this->request->is(['post'])){
+            debug($this->request->data);
+            if(!empty($this->request->data['search'])){
+                $customer = $this->Customers->find('all', array('conditions' => array('num_client' => $this->request->data['search'])))->toArray()[0];
+            }
+            return $this->redirect(['action' => 'view', $customer->id]);
+        }
     }
 
     /**

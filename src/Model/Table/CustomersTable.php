@@ -39,6 +39,10 @@ class CustomersTable extends Table
         $this->hasMany('Advisors', [
             'foreignKey' => 'customer_id'
         ]);
+
+        $this->hasMany('Documents', [
+            'foreignKey' => 'customer_id'
+        ]);
     }
 
     /**

@@ -3,41 +3,55 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Customer $customer
  */
+$cartes = array(2 => "Carte Cheque", 1 => "Caribbean Club", 3 => "Carte Credit");
+$status = array(1 => "Actif", 0 => "Inactif");
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('Edit Customer'), ['action' => 'edit', $customer->id]) ?> </li>
-        <li><?= $this->Form->postLink(__('Delete Customer'), ['action' => 'delete', $customer->id], ['confirm' => __('Are you sure you want to delete # {0}?', $customer->id)]) ?> </li>
-        <li><?= $this->Html->link(__('List Customers'), ['action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Customer'), ['action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Advisors'), ['controller' => 'Advisors', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Advisor'), ['controller' => 'Advisors', 'action' => 'add']) ?> </li>
-    </ul>
-</nav>
-<div class="customers view large-9 medium-8 columns content">
-    <h3><?= h($customer->id) ?></h3>
-    <table class="vertical-table">
-        <tr>
-            <th scope="row"><?= __('First Name') ?></th>
-            <td><?= h($customer->first_name) ?></td>
+
+<div class="panel panel-default">
+  <div class="panel-heading">Profil : <?= $customer->first_name . " " . $customer->last_name ?></div>
+  <div class="panel-body">
+      <div class="customers view large-9 medium-8 columns content">
+    <table class="vertical-table table table-bordered">
+    <tr>
+            <th scope="row"><?= __('Client') ?></th>
+            <td><?= h($customer->first_name . " " . $customer->last_name) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Last Name') ?></th>
-            <td><?= h($customer->last_name) ?></td>
+            <th scope="row"><?= __('Type Carte') ?></th>
+            <td><?= $cartes[$customer->type_carte] ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('NIF') ?></th>
             <td><?= h($customer->NIF) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Address') ?></th>
-            <td><?= h($customer->address) ?></td>
-        </tr>
-        <tr>
             <th scope="row"><?= __('Email') ?></th>
             <td><?= h($customer->email) ?></td>
         </tr>
+        <tr>
+        <?php if(!empty($customer->telephone)) : ?>
+            <th scope="row"><?= __('Telephone') ?></th>
+            <td><?= "+509-".$customer->telephone ?></td>
+            <?php else : ?>
+                <th scope="row"><?= __('Telephone') ?></th>
+            <td></td>
+            <?php endif; ?>
+            
+        </tr>
+        <tr>
+        <?php if(!empty($customer->cellulaire)) : ?>
+            <th scope="row"><?= __('Telephone') ?></th>
+            <td><?= "+509-".$customer->cellulaire ?></td>
+            <?php else : ?>
+                <th scope="row"><?= __('Telephone') ?></th>
+            <td></td>
+            <?php endif; ?>
+        </tr> 
+        <tr>
+            <th scope="row"><?= __('Adresse') ?></th>
+            <td><?= h($customer->address) ?></td>
+        </tr>
+        
         <tr>
             <th scope="row"><?= __('Entreprise') ?></th>
             <td><?= h($customer->entreprise) ?></td>
@@ -59,67 +73,157 @@
             <td><?= h($customer->num_client) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Carte Identite') ?></th>
-            <td><?= h($customer->carte_identite) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Id') ?></th>
-            <td><?= $this->Number->format($customer->id) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Telephone') ?></th>
-            <td><?= $this->Number->format($customer->telephone) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Cellulaire') ?></th>
-            <td><?= $this->Number->format($customer->cellulaire) ?></td>
-        </tr>
-        <tr>
             <th scope="row"><?= __('Tel Employeur') ?></th>
-            <td><?= $this->Number->format($customer->tel_employeur) ?></td>
+            <td><?= "+509-". $customer->tel_employeur ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Status') ?></th>
-            <td><?= $this->Number->format($customer->status) ?></td>
+            <?php if($customer->status == 0) : ?>
+                <td><span class="label label-success"><?= $status[$customer->status] ?></label></td>
+            <?php else : ?>
+                <td><span class="label label-danger"><?= $status[$customer->status] ?></label></td>
+            <?php endif; ?>
         </tr>
-        <tr>
-            <th scope="row"><?= __('Type Carte') ?></th>
-            <td><?= $this->Number->format($customer->type_carte) ?></td>
-        </tr>
+        
     </table>
     <div class="related">
-        <h4><?= __('Related Advisors') ?></h4>
+        <h4><?= __('Références') ?><button type="button" class="btn btn-info" data-toggle="modal" data-target="#newAdvisor" style="float:right;margin-bottom:7px">
+                    <span class='glyphicon glyphicon-plus'></span> Nouveau
+                  </button></h4>
         <?php if (!empty($customer->advisors)): ?>
-        <table cellpadding="0" cellspacing="0">
+        <table cellpadding="0" cellspacing="0" class = "table table-bordered">
             <tr>
-                <th scope="col"><?= __('Id') ?></th>
-                <th scope="col"><?= __('Customer Id') ?></th>
-                <th scope="col"><?= __('First Name') ?></th>
-                <th scope="col"><?= __('Address') ?></th>
-                <th scope="col"><?= __('Phone') ?></th>
+                <th scope="col"><?= __('Nom') ?></th>
+                <th scope="col"><?= __('Téléphone') ?></th>
                 <th scope="col"><?= __('Email') ?></th>
-                <th scope="col"><?= __('Employer') ?></th>
-                <th scope="col"><?= __('Last Name') ?></th>
-                <th scope="col" class="actions"><?= __('Actions') ?></th>
+                <th scope="col"><?= __('Adresse') ?></th>
+                <th scope="col"><?= __('Employeur') ?></th>
+                <th scope="col" class="actions"></th>
             </tr>
             <?php foreach ($customer->advisors as $advisors): ?>
             <tr>
-                <td><?= h($advisors->id) ?></td>
-                <td><?= h($advisors->customer_id) ?></td>
-                <td><?= h($advisors->first_name) ?></td>
+                <td><?= h($advisors->first_name." ".$advisors->last_name) ?></td>
                 <td><?= h($advisors->address) ?></td>
-                <td><?= h($advisors->phone) ?></td>
+                <?php if(!empty($advisors->phone)) : ?>
+                    <td><?= h("+509-". $advisors->phone) ?></td>
+                <?php else : ?>
+                    <td></td>
+                <?php endif; ?>
+                
                 <td><?= h($advisors->email) ?></td>
                 <td><?= h($advisors->employer) ?></td>
-                <td><?= h($advisors->last_name) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['controller' => 'Advisors', 'action' => 'view', $advisors->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['controller' => 'Advisors', 'action' => 'edit', $advisors->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'Advisors', 'action' => 'delete', $advisors->id], ['confirm' => __('Are you sure you want to delete # {0}?', $advisors->id)]) ?>
+                <td class="actions text-center">
+                    <?= $this->Form->postLink(__('Supprimer'), ['controller' => 'Advisors', 'action' => 'delete', $advisors->id], ['confirm' => __('Etes-vous sûr de voiloir supprimer {0}?', $advisors->first_name." ".$advisors->last_name)]) ?>
                 </td>
             </tr>
             <?php endforeach; ?>
         </table>
         <?php endif; ?>
     </div>
+    <div class="related">
+        <h4><?= __('Documents') ?><button type="button" class="btn btn-info" data-toggle="modal" data-target="#newDocument" style="float:right;margin-bottom:7px">
+                    <span class='glyphicon glyphicon-plus'></span> Nouveau
+                  </button></h4>
+        <?php if (!empty($customer->documents)): ?>
+        <table cellpadding="0" cellspacing="0" class = "table table-bordered">
+            <tr>
+                <th scope="col"><?= __('Nom') ?></th>
+                <th scope="col"><?= __('Lien') ?></th>
+                <th scope="col" class="actions"></th>
+            </tr>
+            <?php foreach ($customer->documents as $document): ?>
+            <tr>
+                <td><?= h($document->name) ?></td>
+                <td><?= h($document->doc_path) ?></td>
+                <td class="actions text-center">
+                <a href="http://localhost/clients/img/documents/<?= $document->doc_path ?>" style = "color:green" target = "_blank">Voir</a>
+                    <?= $this->Form->postLink(__('Supprimer'), ['controller' => 'Documents', 'action' => 'delete', $document->id ], ['confirm' => __('Etes-vous sûr de voiloir supprimer {0}?', $document->name), 'style' => "color:red"]) ?>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </table>
+        <?php endif; ?>
+    </div>
+</div>
+
+  </div>
+  <div class="panel-footer"></div>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog" id="newDocument">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+    <?= $this->Form->create($document, array('url' =>"/documents/add", 'enctype' => 'multipart/form-data')) ?>
+    <?= $this->Form->control('customer_id', ['type' => "hidden", 'value' => $customer->id]); ?>
+      <div class="modal-header">
+        <h5 class="modal-title"><span class = "glyphicon glyphicon-plus"> </span> Nouveau Document</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        </button>
+      </div>
+      <div class="modal-body">
+        
+          <?php echo $this->Form->control('name', array('class' => "form-control", "placeholder" => "Nom", "label" => "Nom")); ?>
+          <hr>  
+          <div class="form-group">
+            <label for="exampleInputFile">Pièce jointe</label>
+            <input type="file" id="exampleInputFile" name = "path_to_doc">
+            <p class="help-block">Nous acceptons les PDF et les images</p>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <?= $this->Form->button(__('Valider'), array('class' => "btn btn-success")) ?>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+      </div>
+      <?= $this->Form->end() ?>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="newAdvisor">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <?= $this->Form->create($advisor, array('url' =>"/advisors/add")) ?>
+      <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title"><span class="glyphicon glyphicon-plus"></span> Nouvelle référence</h4>
+      </div>
+      <div class="modal-body">
+      <div class="row">
+          <div class="col-md-6">
+              <?php echo $this->Form->control('first_name', array('class' => "form-control", "placeholder" => "Prénom", "label" => "Prénom")); ?>
+          </div>
+          <div class="col-md-6">
+              <?php echo $this->Form->control('last_name', array('class' => "form-control", "placeholder" => "Nom", "label" => "Nom")); ?>
+          </div>
+      </div>
+      <hr>
+      <div class="row">
+          <div class="col-md-12">
+              <?php echo $this->Form->control('address', array('class' => "form-control", "placeholder" => "Adresse", "label" => "Adresse"));?>
+          </div>
+       </div>
+       <hr>
+       <div class="row">
+          <div class="col-md-6">
+              <?php echo $this->Form->control('phone', array('class' => "form-control", "placeholder" => "Téléphone", "label" => "Téléphone")); ?>
+          </div>
+          <div class="col-md-6">
+              <?php echo $this->Form->control('email', array('class' => "form-control", "placeholder" => "Email", "label" => "Email")); ?>
+          </div>
+      </div>
+      <hr>
+        <?php
+            echo $this->Form->control('customer_id', ['type' => "hidden", 'value' => $customer->id]);
+            echo $this->Form->control('employer', array('class' => "form-control", "placeholder" => "Nom Employeur", "label" => "Nom Employeur"));
+        ?>
+      </div>
+      <div class="modal-footer">
+       <?= $this->Form->button(__('Valider'), array('class' => "btn btn-success")) ?>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+      </div>
+      <?= $this->Form->end() ?>
+    </div>
+  </div>
 </div>

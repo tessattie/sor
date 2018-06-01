@@ -55,14 +55,13 @@ class AdvisorsController extends AppController
         if ($this->request->is('post')) {
             $advisor = $this->Advisors->patchEntity($advisor, $this->request->getData());
             if ($this->Advisors->save($advisor)) {
-                $this->Flash->success(__('The advisor has been saved.'));
+                $this->Flash->success(__('La référence a bien été sauvegardée'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['controller' => 'Customers', 'action' => 'view', $advisor->customer_id]);
             }
-            $this->Flash->error(__('The advisor could not be saved. Please, try again.'));
+            $this->Flash->error(__('La référence n\'a pas pu être sauvegardé'));
+            return $this->redirect(['controller' => 'Customers', 'action' => 'view', $advisor->customer_id]);
         }
-        $customers = $this->Advisors->Customers->find('list', ['limit' => 200]);
-        $this->set(compact('advisor', 'customers'));
     }
 
     /**
@@ -102,11 +101,11 @@ class AdvisorsController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $advisor = $this->Advisors->get($id);
         if ($this->Advisors->delete($advisor)) {
-            $this->Flash->success(__('The advisor has been deleted.'));
+            $this->Flash->success(__('La référence a été supprimée'));
         } else {
-            $this->Flash->error(__('The advisor could not be deleted. Please, try again.'));
+            $this->Flash->error(__("Nous n'avons pas pu supprimer cette référence. Réessayez plus tard"));
         }
 
-        return $this->redirect(['action' => 'index']);
+        return $this->redirect(['controller' => 'Customers', 'action' => 'view', $advisor->customer_id]);
     }
 }

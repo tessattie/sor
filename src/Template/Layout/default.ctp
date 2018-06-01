@@ -54,17 +54,20 @@ $cakeDescription = 'CMSA';
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li <?= (!empty($this->request->params['controller']) && $this->request->params['controller'] == 'Users') ? 'class="active"' : '' ?>><a href="<?= ROOT_DIREC ?>/users"><span class="glyphicon glyphicon-user"></span> Users <span class="sr-only">(current)</span></a></li>
+        
+        <li <?= (!empty($this->request->params['controller']) && $this->request->params['controller'] == 'Users') ? 'class="active"' : '' ?>><a href="<?= ROOT_DIREC ?>/users"><span class="glyphicon glyphicon-user"></span> Utilisteurs <span class="sr-only">(current)</span></a></li>
 
-        <li <?= (!empty($this->request->params['controller']) && $this->request->params['controller'] == 'Customers') ? 'class="active"' : '' ?>><a href="<?= ROOT_DIREC ?>/customers/add"><span class="glyphicon glyphicon-plus"></span> New Customer</a></li>
-        <li <?= (!empty($this->request->params['controller']) && $this->request->params['controller'] == 'Advisors') ? 'class="active"' : '' ?>><a href="<?= ROOT_DIREC ?>/advisors"><span class="glyphicon glyphicon-book"></span> Advisors</a></li>        
+        <li <?= (!empty($this->request->params['controller']) && $this->request->params['controller'] == 'Customers' && $this->request->params['action'] == 'index') ? 'class="active"' : '' ?>><a href="<?= ROOT_DIREC ?>/customers"><span class="glyphicon glyphicon-user"></span> Clients <span class="sr-only"></span></a></li>
+        
+        <li <?= (!empty($this->request->params['controller']) && $this->request->params['controller'] == 'Customers' && $this->request->params['action'] == 'add') ? 'class="active"' : '' 
+        ?>><a href="<?= ROOT_DIREC ?>/customers/add"><span class="glyphicon glyphicon-plus"></span> Nouveau Client</a></li>        
       </ul>
       <form class="form-inline my-2 my-lg-0" style = "width: 48%;
                                                       float: left;
                                                       margin-left: 59px;
-                                                      margin-top: 8px;">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                                                      margin-top: 8px;" action="<?= ROOT_DIREC ?>/customers/search" method='POST'>
+      <input class="form-control mr-sm-2" type="search" placeholder="Rechercher" aria-label="Search" name="search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit" name="submit">Search</button>
     </form>
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
@@ -133,7 +136,6 @@ $cakeDescription = 'CMSA';
     <?= $this->Html->script("bootstrap.js") ?>
     <?= $this->Html->script("script.js") ?>
     <?= $this->Html->script("datatables.min.js") ?>
-    <?= $this->Html->script("tables.js") ?>
     
 </body>
 </html>

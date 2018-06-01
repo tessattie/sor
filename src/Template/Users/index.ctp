@@ -8,10 +8,10 @@
   <div class="panel-heading">
   <div class="row">
       <div class="col-md-11">
-          <h3 class="panel-title"><span class="glyphicon glyphicon-cog"></span> Manage Users</h3>
+          <h3 class="panel-title"><span class="glyphicon glyphicon-cog"></span> Utilisateurs</h3>
       </div>
       <div class="col-md-1"><button type="button" class="btn btn-default" data-toggle="modal" data-target="#newUser" style="float:right">
-                    <span class='glyphicon glyphicon-plus'></span> New User
+                    <span class='glyphicon glyphicon-plus'></span> Nouvel Utilisateur
                   </button></div>
   </div>
     
@@ -23,11 +23,11 @@
         <table id="usersTable" class='table-hover'>
         <thead>
             <tr>
-                <th scope="col">Name</th>
-                <th scope="col" class="text-center">Username</th>
+                <th scope="col">Nom</th>
+                <th scope="col" class="text-center">Nom d'utilisateur</th>
                 <th scope="col" class="text-center">Email</th>
-                <th scope="col" class="text-center">Role</th>
-                <th scope="col" class="text-center">Status</th>
+                <th scope="col" class="text-center">Rôle</th>
+                <th scope="col" class="text-center">Statut</th>
                 <th scope="col" class="actions text-center">Actions</th>
             </tr>
         </thead>
@@ -67,11 +67,11 @@
                     
                   </div>
                   <div class="modal-body">
-                    Are you sure you would like to delete the user : <?= $user->first_name . " " . $user->last_name ?> ?
+                    Etes-vous sûr de vouloir supprimer l'utilisateur : <?= $user->first_name . " " . $user->last_name ?> ?
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-primary"><a href="<?= ROOT_DIREC ?>/users/delete/<?= $user->id ?>" style="color:white">Yes</a></button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                    <button type="button" class="btn btn-primary"><a href="<?= ROOT_DIREC ?>/users/delete/<?= $user->id ?>" style="color:white">Oui</a></button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Non</button>
                   </div>
                 </div>
               </div>
@@ -82,7 +82,7 @@
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title"><span class='glyphicon glyphicon-edit'></span> Edit : <?= $user->first_name . " " . $user->last_name ?></h4>
+                <h4 class="modal-title"><span class='glyphicon glyphicon-edit'></span> Edition : <?= $user->first_name . " " . $user->last_name ?></h4>
               </div>
               <?php 
                 if(!empty($currentEdit) && $currentEdit->id == $user->id){
@@ -96,12 +96,12 @@
               <?= $this->Form->input('formtype', array('type' => "hidden", 'value' => "1")); ?>
               <div class="modal-body">
         <div class="row">
-          <div class="col-md-4"><label class="modallabel">Last name :</label></div>
-          <div class="col-md-8"><?= $this->Form->input('last_name', array('class' => "form-control", "label" => false, "placeholder" => "Last name", 'value' => $user->last_name)); ?></div>
+          <div class="col-md-4"><label class="modallabel">Nom :</label></div>
+          <div class="col-md-8"><?= $this->Form->input('last_name', array('class' => "form-control", "label" => false, "placeholder" => "Nom", 'value' => $user->last_name)); ?></div>
       </div>
       <div class="row">
-          <div class="col-md-4"><label class="modallabel">First name :</label></div>
-          <div class="col-md-8"><?= $this->Form->input('first_name', array('class' => "form-control", "label" => false, "placeholder" => "First name", 'value' => $user->first_name)); ?></div>
+          <div class="col-md-4"><label class="modallabel">Prénom :</label></div>
+          <div class="col-md-8"><?= $this->Form->input('first_name', array('class' => "form-control", "label" => false, "placeholder" => "Prénom", 'value' => $user->first_name)); ?></div>
       </div>
       <div class="row">
           <div class="col-md-4"><label class="modallabel">Email :</label></div>
@@ -109,30 +109,30 @@
       </div>
       <hr>
       <div class="row">
-          <div class="col-md-4"><label class="modallabel">Role :</label></div>
-          <div class="col-md-8"><?= $this->Form->input('role', array('class' => "form-control", "type" => "select", "label" => false, "placeholder" => "Role", "options" => $roles, 'value' => $user->role)); ?></div>
+          <div class="col-md-4"><label class="modallabel">Rôle :</label></div>
+          <div class="col-md-8"><?= $this->Form->input('role', array('class' => "form-control", "type" => "select", "label" => false, "placeholder" => "Rôle", "options" => $roles, 'value' => $user->role)); ?></div>
       </div>
       <div class="row">
-          <div class="col-md-4"><label class="modallabel">Status :</label></div>
+          <div class="col-md-4"><label class="modallabel">Statut :</label></div>
           <div class="col-md-8"><?= $this->Form->input('status', array('class' => "form-control", "type" => "select", "label" => false, "options" => $status, 'value' => $user->status)); ?></div>
       </div>
       <hr>
       <div class="row">
-          <div class="col-md-4"><label class="modallabel">Username :</label></div>
-          <div class="col-md-8"><?= $this->Form->input('username', array('class' => "form-control", "label" => false, "placeholder" => "Username", 'value' => $user->username)); ?></div>
+          <div class="col-md-4"><label class="modallabel">Nom d'utilisateur :</label></div>
+          <div class="col-md-8"><?= $this->Form->input('username', array('class' => "form-control", "label" => false, "placeholder" => "Nom d'utilisateur", 'value' => $user->username)); ?></div>
       </div>
       <div class="row">
-          <div class="col-md-4"><label class="modallabel">Password :</label></div>
-          <div class="col-md-8"><?= $this->Form->input('password', array('class' => "form-control", "label" => false, "placeholder" => "Password", "autocomplete" => "new-password", 'value' => $user->password)); ?></div>
+          <div class="col-md-4"><label class="modallabel">Mot de passe :</label></div>
+          <div class="col-md-8"><?= $this->Form->input('password', array('class' => "form-control", "label" => false, "placeholder" => "Mot de passe", "autocomplete" => "new-password", 'value' => $user->password)); ?></div>
       </div>
       <div class="row">
-          <div class="col-md-4"><label class="modallabel">Confirm Password :</label></div>
+          <div class="col-md-4"><label class="modallabel">Confirmation mot de passe :</label></div>
           <div class="col-md-8"><?= $this->Form->input('confirm_password', array('class' => "form-control", "label" => false, "placeholder" => "Confirmation MDP", "type" => "password", 'value' => $user->password)); ?></div>
       </div>
       </div>
               <div class="modal-footer">
-                <?= $this->Form->button(__('Submit'), array('class' => "btn btn-success")); ?>              
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <?= $this->Form->button(__('Valider'), array('class' => "btn btn-success")); ?>              
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
               </div>
               <?= $this->Form->end() ?>
             </div>
@@ -153,18 +153,18 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title"><span class='glyphicon glyphicon-plus'></span> New user</h4>
+        <h4 class="modal-title"><span class='glyphicon glyphicon-plus'></span> Nouvel Utilisateur</h4>
       </div>
       <?= $this->Form->create($us) ?>
       <?= $this->Form->control('formtype', array('type' => "hidden", 'value' => "2")); ?>
       <div class="modal-body">
         <div class="row">
-          <div class="col-md-4"><label class="modallabel">Last name :</label></div>
-          <div class="col-md-8"><?= $this->Form->input('last_name', array('class' => "form-control", "label" => false, "placeholder" => "Last name", "required" => false, "value" => $us->last_name)); ?></div>
+          <div class="col-md-4"><label class="modallabel">Nom :</label></div>
+          <div class="col-md-8"><?= $this->Form->input('last_name', array('class' => "form-control", "label" => false, "placeholder" => "Nom", "required" => false, "value" => $us->last_name)); ?></div>
       </div>
       <div class="row">
-          <div class="col-md-4"><label class="modallabel">First name :</label></div>
-          <div class="col-md-8"><?= $this->Form->control('first_name', array('class' => "form-control", "label" => false, "placeholder" => "First name", "value" => $us->first_name)); ?></div>
+          <div class="col-md-4"><label class="modallabel">Prénom :</label></div>
+          <div class="col-md-8"><?= $this->Form->control('first_name', array('class' => "form-control", "label" => false, "placeholder" => "Prénom", "value" => $us->first_name)); ?></div>
       </div>
       <div class="row">
           <div class="col-md-4"><label class="modallabel">Email :</label></div>
@@ -172,31 +172,31 @@
       </div>
       <hr>
       <div class="row">
-          <div class="col-md-4"><label class="modallabel">Role :</label></div>
-          <div class="col-md-8"><?= $this->Form->input('role', array('class' => "form-control", "type" => "select", "label" => false, "placeholder" => "Role", "options" => $roles, "value" => $us->role)); ?></div>
+          <div class="col-md-4"><label class="modallabel">Rôle :</label></div>
+          <div class="col-md-8"><?= $this->Form->input('role', array('class' => "form-control", "type" => "select", "label" => false, "placeholder" => "Rôle", "options" => $roles, "value" => $us->role)); ?></div>
       </div>
       <div class="row">
-          <div class="col-md-4"><label class="modallabel">Status :</label></div>
+          <div class="col-md-4"><label class="modallabel">Statut :</label></div>
           <div class="col-md-8"><?= $this->Form->input('status', array('class' => "form-control", "type" => "select", "label" => false, "options" => $status, 'value' => 1)); ?></div>
       </div>
       <hr>
       <div class="row">
-          <div class="col-md-4"><label class="modallabel">Username :</label></div>
-          <div class="col-md-8"><?= $this->Form->input('username', array('class' => "form-control", "label" => false, "placeholder" => "Username", "value" => $us->username)); ?></div>
+          <div class="col-md-4"><label class="modallabel">Nom d'utilisateur :</label></div>
+          <div class="col-md-8"><?= $this->Form->input('username', array('class' => "form-control", "label" => false, "placeholder" => "Nom d'utilisateur", "value" => $us->username)); ?></div>
       </div>
       <div class="row">
-          <div class="col-md-4"><label class="modallabel">Password :</label></div>
-          <div class="col-md-8"><?= $this->Form->input('password', array('class' => "form-control", "label" => false, "placeholder" => "Password", "autocomplete" => "new-password", "type" => "password", "value" => '')); ?></div>
+          <div class="col-md-4"><label class="modallabel">Mot de pase :</label></div>
+          <div class="col-md-8"><?= $this->Form->input('password', array('class' => "form-control", "label" => false, "placeholder" => "Mot de passe", "autocomplete" => "new-password", "type" => "password", "value" => '')); ?></div>
       </div>
       <div class="row">
-          <div class="col-md-4"><label class="modallabel">Confirm password :</label></div>
-          <div class="col-md-8"><?= $this->Form->input('confirm_password', array('class' => "form-control", "label" => false, "placeholder" => "Confirm password", "type" => "password", "value" => '')); ?></div>
+          <div class="col-md-4"><label class="modallabel">Confirmation mot de passe :</label></div>
+          <div class="col-md-8"><?= $this->Form->input('confirm_password', array('class' => "form-control", "label" => false, "placeholder" => "Confirmation MDP", "type" => "password", "value" => '')); ?></div>
       </div>
       
       </div>
       <div class="modal-footer">
-        <?= $this->Form->button(__('Submit'), array('class' => "btn btn-success")); ?>      
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <?= $this->Form->button(__('Valider'), array('class' => "btn btn-success")); ?>      
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
       </div>
       <?= $this->Form->end() ?>
     </div>

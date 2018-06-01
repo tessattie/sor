@@ -8,14 +8,14 @@
     <table cellpadding="0" cellspacing="0" id="customersTable">
         <thead>
             <tr>
-                <th scope="col">First Name</th>
-                <th scope="col">Last Name</th>
+                <th scope="col">Prénom</th>
+                <th scope="col">Nom</th>
                 <th scope="col">NIF</th>
-                <th scope="col">Home Phone</th>
-                <th scope="col">Cell Phone</th>
+                <th scope="col">Télephone</th>
+                <th scope="col">Cellulaire</th>
                 <th scope="col">Email</th>
-                <th scope="col">Account Type</th>
-                <th scope="col">Status</th>
+                <th scope="col">Type compte</th>
+                <th scope="col">Statut</th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
@@ -35,9 +35,9 @@
                     <td><span class="label label-success"><?= $status[$customer->status] ?></span></td>
                 <?php endif; ?>
                 <td class="actions">
-                    <?= $this->Html->link(__('View'), ['action' => 'view', $customer->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $customer->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $customer->id], ['confirm' => __('Are you sure you want to delete # {0}?', $customer->id)]) ?>
+                    <?= $this->Html->link(__('Voir'), ['action' => 'view', $customer->id],  array("style" => "color:green")) ?>
+                    <?= $this->Html->link(__('Editer'), ['action' => 'edit', $customer->id]) ?>
+                    <?= $this->Form->postLink(__('Supprimer'), ['action' => 'delete', $customer->id], ['confirm' => __('Etes-vous sûre de vouloir supprimer {0}?', $customer->first_name . " " . $customer->last_name), 'style' => "color:red"]) ?>
                 </td>
             </tr>
             <?php endforeach; ?>

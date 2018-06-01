@@ -92,7 +92,7 @@ class AppController extends Controller
 
     protected function checkfile($file, $name, $directory){
         // debug($file); die();
-        $allowed_extensions = array('jpg', "JPG", "jpeg", "JPEG", "png", "PNG");
+        $allowed_extensions = array('jpg', "JPG", "jpeg", "JPEG", "png", "PNG", 'pdf', 'html');
         if(!$file['error']){
             $extension = explode("/", $file['type'])[1];
             if(in_array($extension, $allowed_extensions)){
@@ -100,13 +100,13 @@ class AppController extends Controller
                 if(move_uploaded_file($file['tmp_name'], $dossier . $name . "." . $extension)){
                     return $name . "." . $extension;
                 }else{
-                    return false;
+                    return 'couldnt move file';
                 }
             }else{
-                return false;
+                return 'extension error';
             }
         }else{
-            return false;
+            return 'error with upload';
         }
     }
 }
